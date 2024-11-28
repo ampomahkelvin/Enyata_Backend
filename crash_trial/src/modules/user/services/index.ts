@@ -14,14 +14,18 @@ export class UserService {
 
       const hashedPassword = await bcrypt.hash(password, 12)
 
-      const newUser = await UserRepository.createUser(email, hashedPassword, phoneNumber)
+      const newUser = await UserRepository.createUser(
+        email,
+        hashedPassword,
+        phoneNumber,
+      )
       const token = jwt.sign(
         { id: newUser.id, email: newUser.email },
         Env.get<string>('SECRET'),
         { expiresIn: '10d' },
       )
 
-      return {newUser, token}
+      return { newUser, token }
     } catch (error) {
       throw error
     }
@@ -42,7 +46,7 @@ export class UserService {
       //   { expiresIn: '10d' },
       // )
 
-      return {user}
+      return { user }
     } catch (error) {
       console.log(`error logging in user: ${error}`)
       throw error

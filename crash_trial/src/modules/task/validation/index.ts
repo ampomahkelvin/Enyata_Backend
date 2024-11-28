@@ -25,7 +25,7 @@ export const updateTaskSchema = z.object({
   category: z.string().optional(),
   priorityLevel: z.string().optional(),
   color: z.string().optional(),
-  id: z.number()
+  id: z.number(),
 })
 
 export type CreateTaskSchema = typeof createTaskSchema._type

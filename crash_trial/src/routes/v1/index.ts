@@ -5,6 +5,6 @@ import TaskRouter from '../../modules/task/task.routes'
 const appRouter = express.Router()
 
 appRouter.use('/user', UserRouter)
-appRouter.use("/task", TaskRouter)
+appRouter.use('/task', TaskRouter)
 
 export const router = appRouter

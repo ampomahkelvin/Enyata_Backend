@@ -1,14 +1,14 @@
-import { z } from 'zod';
-import { AppEnv } from '../enums';
+import { z } from 'zod'
+import { AppEnv } from '../enums'
 
 export interface EnvProps {
-  PORT: number;
-  NODE_ENV: string;
-  DATABASE_URL: string;
-  APP_NAME: string;
-  SALT_ROUNDS: number;
-  SECRET: string;
-  DOMAIN: string;
+  PORT: number
+  NODE_ENV: string
+  DATABASE_URL: string
+  APP_NAME: string
+  SALT_ROUNDS: number
+  SECRET: string
+  DOMAIN: string
 }
 
 export const envValidatorSchema = z.object({
@@ -19,4 +19,4 @@ export const envValidatorSchema = z.object({
   SALT_ROUNDS: z.number(),
   SECRET: z.string(),
   DOMAIN: z.string(),
-});
+})

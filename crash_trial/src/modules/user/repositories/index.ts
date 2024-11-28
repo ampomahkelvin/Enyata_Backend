@@ -35,7 +35,7 @@ export class UserRepository {
     }
   }
 
-  static getUserByEmail = async(email:String) => {
+  static getUserByEmail = async (email: String) => {
     try {
       return await sqlQuest.oneOrNone(userQueries.getUserByEmail, [email])
     } catch (error) {

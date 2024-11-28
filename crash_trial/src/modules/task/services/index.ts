@@ -94,7 +94,7 @@ export class TaskService {
       if (!task) throw new Error('Task not found')
 
       const updatedTask = await TaskRepository.updateTask({
-        id:taskId,
+        id: taskId,
         title: title || task.title,
         description: description || task.description,
         subtask: subtask || task.subtask,

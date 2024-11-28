@@ -1,9 +1,9 @@
-import { configDotenv } from 'dotenv';
-import development from './development';
-import test from './test';
-import production from './production';
+import { configDotenv } from 'dotenv'
+import development from './development'
+import test from './test'
+import production from './production'
 
-configDotenv();
+configDotenv()
 
 const defaults = {
   NODE_ENV: process.env.PROJECT_NODE_ENV,
@@ -15,10 +15,12 @@ const defaults = {
   DOMAIN: process.env.PROJECT_DOMAIN,
   SALT_ROUNDS: parseInt(process.env.PROJECT_SALT_ROUNDS as string),
   SECRET: process.env.PROJECT_SECRET,
-};
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+}
 
 export default {
   development: { ...defaults, ...development },
   test: { ...defaults, ...test },
   production: { ...defaults, ...production },
-}[process.env.PROJECT_NODE_ENV || 'development'];
+}[process.env.PROJECT_NODE_ENV || 'development']

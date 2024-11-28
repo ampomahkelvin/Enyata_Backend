@@ -16,7 +16,7 @@ export class UserController {
         })
       }
 
-      const {newUser, token} = await UserService.createUser(body)
+      const { newUser, token } = await UserService.createUser(body)
 
       res.status(201).json({
         status: 201,
@@ -40,7 +40,7 @@ export class UserController {
       if (!body.email || !body.password)
         res.json({ status: 400, message: 'Missing fields' })
 
-      const {user} = await UserService.loginUser({
+      const { user } = await UserService.loginUser({
         email: body.email,
         password: body.password,
       })
@@ -51,15 +51,15 @@ export class UserController {
       console.log(req.session)
 
       req.session!.user = {
-        id: user.id,          
-        email: user.email,     
-      };
+        id: user.id,
+        email: user.email,
+      }
 
       res.json({
-        status:200,
-        message:"Login successful",
+        status: 200,
+        message: 'Login successful',
         // token,
-        user
+        user,
       })
     } catch (error) {
       console.log(`error logging in: ${error}`)
@@ -67,8 +67,11 @@ export class UserController {
     }
   }
 
-  static getAllUsers = async (_: Request, res: Response) => {
+  static getAllUsers = async (req: Request, res: Response) => {
     try {
+      if (!req.isAuthenticated()) {
+        throw new Error('Login first')
+      }
       const users = await UserService.getAllUsers()
       res.status(200).json({
         status: 200,
@@ -77,6 +80,7 @@ export class UserController {
         users,
       })
     } catch (error) {
+      console.log(error)
       res.json({
         status: 400,
         message: 'Something went wrong',
