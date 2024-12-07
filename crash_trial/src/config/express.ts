@@ -9,6 +9,7 @@ import {
   VerifyCallback,
 } from 'passport-google-oauth2'
 import { UserRepository } from '../modules/user/repositories'
+import { ApiError } from '../shared/utils/api.error'
 // import path from 'path';
 
 export default function App(): Express {
@@ -90,6 +91,8 @@ export default function App(): Express {
   })
 
   app.use(ROUTES.V1_PATH, router)
+
+  app.use(ApiError.genericError)
 
   return app
 }

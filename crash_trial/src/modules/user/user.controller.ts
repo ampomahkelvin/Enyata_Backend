@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { UserService } from './services'
 import { CreateUserSchema, LoginUserSchema } from './validation'
+import { ApiError } from '../../shared/utils/api.error'
 
 export class UserController {
   static createUser = async (req: Request, res: Response) => {
@@ -10,10 +11,11 @@ export class UserController {
 
     try {
       if (!body.email || !body.password || !body.phoneNumber) {
-        res.status(400).json({
-          status: 400,
-          message: 'Missing required fields.',
-        })
+        // res.status(400).json({
+        //   status: 400,
+        //   message: 'Missing required fields.',
+        // })
+        throw new ApiError(400, 'Missing data')
       }
 
       const { newUser, token } = await UserService.createUser(body)
@@ -25,11 +27,11 @@ export class UserController {
         user: newUser,
       })
     } catch (error) {
-      console.error('Error creating user:', error)
-      res.json({
-        status: 401,
-        message: 'Something went wrong',
-      })
+      throw error
+      // res.json({
+      //   status: 401,
+      //   message: 'Something went wrong',
+      // })
     }
   }
 

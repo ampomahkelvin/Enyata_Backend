@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
 import { TaskService } from './services'
 import { CreateTaskSchema } from './validation'
+import { ApiError } from '../../shared/utils/api.error'
 
 export class TaskController {
   static createTask = async (req: Request, res: Response) => {
     try {
-      console.log((req as any).user)
+      // console.log((req as any).user)
       const body = req.body as CreateTaskSchema
       const newTask = await TaskService.createTask(body)
       res.json({
@@ -14,10 +15,11 @@ export class TaskController {
         task: newTask,
       })
     } catch (error) {
-      res.json({
-        status: 400,
-        message: 'error occured while creating task',
-      })
+      throw new ApiError(400,"Failure creating task")
+      // res.json({
+      //   status: 400,
+      //   message: 'error occured while creating task',
+      // })
     }
   }
 

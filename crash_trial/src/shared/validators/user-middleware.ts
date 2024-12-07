@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-// import { ApiError } from '../utils/api.error';
+import { ApiError } from '../utils/api.error';
 import { ZodType } from 'zod'
 
 export class ValidationMiddleware {
@@ -13,11 +13,11 @@ export class ValidationMiddleware {
           return next()
         })
         .catch((error) => {
-          //   ApiError.appError(error, req, res, next);
-          console.log(error)
-          return res.status(400).json({
-            message: 'error',
-          })
+            return ApiError.appError(error, req, res, next);
+          // console.log(error)
+          // return res.status(400).json({
+          //   message: 'error',
+          // })
         })
     }
   }
